@@ -17,10 +17,9 @@ public class KafkaProducerServiceImpl implements KafkaProducerService {
     private KafkaTemplate<Long, Long> kafkaTemplate;
 
     @Override
-    public void sendMsg(Long msg){
+    public void sendMsg(Long key, Long value){
 
-        System.out.println(msg);
-        ProducerRecord<Long, Long> record = new ProducerRecord<>("fibonacci", msg);
+        ProducerRecord<Long, Long> record = new ProducerRecord<>("fibonacciInput", 0 ,key, value);
 
         //ListenableFuture<SendResult<String, String>> future =
         kafkaTemplate.send(record);

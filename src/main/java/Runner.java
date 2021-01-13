@@ -16,28 +16,25 @@ import org.springframework.kafka.annotation.EnableKafka;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 
-//@EnableKafka
 public class Runner {
 
     public static void main(String[] args) {
-//        int n = 10;
+        int n = 20;
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
-//        KafkaProducerService kafkaProducerService = context.getBean("kafkaProducerServiceImpl", KafkaProducerServiceImpl.class);
-//        List<Integer> fibonacciConsequence = new ArrayList<>();
-//        for (int i = 0; i < n; i++) {
-//            if (i < 2) {
-//                fibonacciConsequence.add(i);
-//            } else {
-//                int fibonacciNumber = fibonacciConsequence.get(i - 1) + fibonacciConsequence.get(i - 2);
-//                fibonacciConsequence.add(fibonacciNumber);
-//            }
-//            kafkaProducerService.sendMsg((long)fibonacciConsequence.get(i));
-//        }
-//        System.out.println("done");
-        KafkaConsumer consumer = context.getBean("kafkaConsumer", KafkaConsumer.class);
+        KafkaProducerService kafkaProducerService = context.getBean("kafkaProducerServiceImpl", KafkaProducerServiceImpl.class);
+        List<Long> fibonacciConsequence = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            if (i < 2) {
+                fibonacciConsequence.add((long) i);
+            } else {
+                long fibonacciNumber = fibonacciConsequence.get(i - 1) + fibonacciConsequence.get(i - 2);
+                fibonacciConsequence.add(fibonacciNumber);
+            }
+            kafkaProducerService.sendMsg((long) i, fibonacciConsequence.get(i));
+        }
+        System.out.println("done");
 
     }
 }
